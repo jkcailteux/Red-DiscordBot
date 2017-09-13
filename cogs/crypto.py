@@ -20,29 +20,21 @@ class Crypto:
 
     @commands.group(pass_context=True, no_pm=True)
     @checks.mod_or_permissions(administrator=False)
-    async def crypto(self, ctx):
+    async def crypto(self, ctx, *, term: str=None):
         """Crypto"""
-        url = "https://api.coinmarketcap.com/v1/ticker/bitcoin/"  
-        await self.bot.say(url)
+        url = "https://api.coinmarketcap.com/v1/ticker" 
         with urllib.request.urlopen(url) as req:
             data = json.loads(req.read().decode())
-            #print(data)
-            await self.bot.say(data)
-
-    # @commands.group(pass_context=True, no_pm=True)
-    # @checks.mod_or_permissions(administrator=True)
-    # async def triviaset(self, ctx):
-    #     """Change trivia settings"""
-    #     server = ctx.message.server
-    #     if ctx.invoked_subcommand is None:
-    #         settings = self.settings[server.id]
-    #         msg = box("Red gains points: {BOT_PLAYS}\n"
-    #                   "Seconds to answer: {DELAY}\n"
-    #                   "Points to win: {MAX_SCORE}\n"
-    #                   "Reveal answer on timeout: {REVEAL_ANSWER}\n"
-    #                   "".format(**settings))
-    #         msg += "\nSee {}help triviaset to edit the settings".format(ctx.prefix)
-    #         await self.bot.say(msg)
+            msg = term + " not found"
+            for crypto in data:
+                if term == crypto['id']:
+                    msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
+                if term == crypto['name'].lower():
+                    msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
+                if term == crypto['symbol'].lower():
+                    msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
+            
+            await self.bot.say(msg)    
 
 def check_folders():
     folders = ("data", "data/crypto/")
