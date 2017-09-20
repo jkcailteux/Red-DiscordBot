@@ -41,7 +41,8 @@ class Crypto:
                 break
             if term == crypto['symbol'].lower():
                 msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
-                break  
+                break
+        msg = "```" + msg + "```" 
         await self.bot.say(msg)
         
 
