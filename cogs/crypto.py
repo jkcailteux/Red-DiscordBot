@@ -17,40 +17,33 @@ class Crypto:
         self.file_path = "data/crypto/settings.json"
         settings = dataIO.load_json(self.file_path)
         self.settings = defaultdict(lambda: DEFAULTS.copy(), settings)
+        self.data = ""
+        self.last_time = 0
 
-    @commands.group(pass_context=True, no_pm=True)
+    @commands.group(pass_context=True)
     @checks.mod_or_permissions(administrator=False)
     async def crypto(self, ctx, *, term: str=None):
         """Crypto"""
-        url = "https://api.coinmarketcap.com/v1/ticker" 
-        with urllib.request.urlopen(url) as req:
-            data = json.loads(req.read().decode())
-            msg = term + " not found"
-            for crypto in data:
-                if term == crypto['id']:
-                    msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
-                if term == crypto['name'].lower():
-                    msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
-                if term == crypto['symbol'].lower():
-                    msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
-            
-            await self.bot.say(msg)    
-
-def check_folders():
-    folders = ("data", "data/crypto/")
-    for folder in folders:
-        if not os.path.exists(folder):
-            print("Creating " + folder + " folder...")
-            os.makedirs(folder)
-
-
-def check_files():
-    if not os.path.isfile("data/crypto/settings.json"):
-        print("Creating empty settings.json...")
-        dataIO.save_json("data/crypto/settings.json", {})
-
+        url = "https://api.coinmarketcap.com/v1/ticker"
+        data = self.data
+        if time.time() > self.last_time + 30:
+            with urllib.request.urlopen(url) as req:
+                data = json.loads(req.read().decode())
+                self.last_time = time.time()
+        self.data = data
+        msg = term + " not found"
+        for crypto in data:
+            if term == crypto['id']:
+                msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
+                break
+            if term == crypto['name'].lower():
+                msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
+                break
+            if term == crypto['symbol'].lower():
+                msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
+                break  
+        await self.bot.say(msg)
+        
 
 def setup(bot):
-    check_folders()
-    check_files()
     bot.add_cog(Crypto(bot))

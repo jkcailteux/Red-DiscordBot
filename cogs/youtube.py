@@ -33,5 +33,4 @@ class YouTube:
 
 
 def setup(bot):
-    n = YouTube(bot)
-    bot.add_cog(n)
+    bot.add_cog(YouTube(bot))
