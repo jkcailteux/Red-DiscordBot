@@ -21,7 +21,6 @@ class Crypto:
         self.last_time = 0
 
     @commands.group(pass_context=True)
-    @checks.mod_or_permissions(administrator=False)
     async def crypto(self, ctx, *, term: str=None):
         """Crypto"""
         url = "https://api.coinmarketcap.com/v1/ticker"
@@ -33,13 +32,13 @@ class Crypto:
         self.data = data
         msg = term + " not found"
         for crypto in data:
-            if term == crypto['id']:
+            if term.lower() == crypto['id'].lower():
                 msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
                 break
-            if term == crypto['name'].lower():
+            if term.lower() == crypto['name'].lower():
                 msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
                 break
-            if term == crypto['symbol'].lower():
+            if term.lower() == crypto['symbol'].lower():
                 msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
                 break
         msg = "```" + msg + "```" 
