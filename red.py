@@ -533,7 +533,7 @@ def set_cog(cog, value):  # TODO: move this out of red.py
 
 
 def load_cogs(bot):
-    defaults = ("alias", "audio", "customcom", "downloader", "economy",
+    defaults = ("advgoogle", "alias", "audio", "customcom", "downloader", "economy",
                 "general", "image", "mod", "streams", "trivia", "crypto", "cryptotrade")
 
     try:

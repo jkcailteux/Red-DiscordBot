@@ -12,7 +12,7 @@ class YouTube:
           '(youtube|youtu|youtube-nocookie)\.(com|be)/'
           '(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?]{11})')
 
-    @commands.command(pass_context=True, name='youtube', no_pm=True)
+    @commands.command(pass_context=True, name='youtube')
     async def _youtube(self, context, *, query: str):
         """Search on Youtube"""
         try:
