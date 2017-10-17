@@ -14,9 +14,6 @@ class Crypto:
     """General commands."""
     def __init__(self, bot):
         self.bot = bot
-        """self.file_path = "data/crypto/settings.json"
-        settings = dataIO.load_json(self.file_path)
-        self.settings = defaultdict(lambda: DEFAULTS.copy(), settings)"""
         self.data = ""
         self.last_time = 0
 
