@@ -15,7 +15,7 @@ class RemindMe:
         self.units = {"minute" : 60, "hour" : 3600, "day" : 86400, "week": 604800, "month": 2592000}
 
     @commands.command(pass_context=True)
-    async def remindme(self, ctx,  quantity : int, time_unit : str, *, text : str):
+    async def remindme(self, ctx, quantity : int, time_unit : str, *, text : str):
         """Sends you <text> when the time is up
 
         Accepts: minutes, hours, days, weeks, month

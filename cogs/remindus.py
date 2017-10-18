@@ -15,24 +15,18 @@ class RemindUs:
         self.units = {"minute" : 60, "hour" : 3600, "day" : 86400, "week": 604800, "month": 2592000}
 
     @commands.command(pass_context=True)
-    async def remindus(self, ctx,  chan_name : str, quantity : int, time_unit : str, *, text : str):
+    async def remindus(self, ctx, quantity : int, time_unit : str, *, text : str):
         """Sends you <text> when the time is up
 
         Accepts: minutes, hours, days, weeks, month
         Example:
-        [p]remindus channel 3 days Have sushi with Asu and JennJenn"""
+        [p]remindus 3 days Have sushi with Asu and JennJenn"""
         time_unit = time_unit.lower()
-        chan_name = chan_name.strip('@# ')
         server = ctx.message.server
         if server is None:
             await self.bot.say("You can NOT make group reminders from a Private Channel")
             return
-        author = discord.utils.get(server.channels, name=chan_name)
-        if author is None:
-            await self.bot.say("Invalid channel name. Provide the channel's name only.")
-            return
-
-        """author = ctx.message.author"""
+        author = ctx.message.channel
         s = ""
         if time_unit.endswith("s"):
             time_unit = time_unit[:-1]
@@ -50,18 +44,17 @@ class RemindUs:
         future = int(time.time()+seconds)
         self.reminders.append({"ID" : author.id, "FUTURE" : future, "TEXT" : text})
         logger.info("{} ({}) set a reminder.".format(author.name, author.id))
-        await self.bot.say("I will remind #%s that in {} {}.".format(str(quantity), time_unit + s) %chan_name)
+        await self.bot.say("I will remind this channel that in {} {}.".format(str(quantity), time_unit + s))
         fileIO("data/remindus/reminders.json", "save", self.reminders)
 
     @commands.command(pass_context=True)
-    async def forgetus(self, ctx, chan_name : str):
+    async def forgetus(self, ctx):
         """Removes all your upcoming notifications"""
-        chan_name = chan_name.strip('@# ')
         server = ctx.message.server
         if server is None:
             await self.bot.say("You can NOT make group reminders from a Private Channel")
             return
-        author = discord.utils.get(server.channels, name=chan_name)
+        author = ctx.message.channel
         to_remove = []
         for reminder in self.reminders:
             if reminder["ID"] == author.id:
