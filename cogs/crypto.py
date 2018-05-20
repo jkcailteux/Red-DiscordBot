@@ -18,43 +18,9 @@ class Crypto:
         self.listings = ""
         self.last_time = 0
 
-
     @commands.group(pass_context=True)
     async def crypto(self, ctx, *, term: str=""):
         """Crypto"""
-
-        if (term.lower() == "jeth"):
-            await self.bot.say("```JETH is priceless```")
-            return
-
-        if (term.lower() == "meth"):
-            await self.bot.say("```Don't do drugs kids```")
-            return
-
-        url = "https://api.coinmarketcap.com/v1/ticker/?limit=1000"
-        data = self.data
-        if time.time() > self.last_time + 30:
-            with urllib.request.urlopen(url) as req:
-                data = json.loads(req.read().decode())
-                self.last_time = time.time()
-        self.data = data
-        msg = term + " not found"
-        for crypto in data:
-            if term.lower() == crypto['id'].lower():
-                msg = "$" + crypto['price_usd'] + "/" + crypto['symbol'] + " " + crypto['percent_change_24h'] + "%"
-                break
-            if term.lower() == crypto['name'].lower():
-                msg = "$" + crypto['price_usd'] + "/" + crypto['symbol'] + " " + crypto['percent_change_24h'] + "%"
-                break
-            if term.lower() == crypto['symbol'].lower():
-                msg = "$" + crypto['price_usd'] + "/" + crypto['symbol'] + " " + crypto['percent_change_24h'] + "%"
-                break
-        msg = "```" + msg + "```" 
-        await self.bot.say(msg)
-
-    @commands.group(pass_context=True)
-    async def crypto2(self, ctx, *, term: str=""):
-        """Crypto2"""
 
         if (term.lower() == "jeth"):
             await self.bot.say("```JETH is priceless```")

@@ -235,6 +235,21 @@ class General:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
 
+    @commands.command(pass_context=True)
+    async def testembed(self, ctx, *, user: discord.Member=None):
+        data = discord.Embed(description="Testing emojis <a:starfox:393138875650015232> <:fedora:397837529203605504> :a:")
+        data.add_field(name="Emoji ", value="starfox")
+        data.add_field(name="Value", value="<a:starfox:393138875650015232>")
+        data.set_footer(text="Member #123456789 | User ID:123456789")
+        data.set_author(name="Tester Guy")
+
+        try:
+            await self.bot.say(embed=data)
+        except discord.HTTPException:
+            await self.bot.say("I need the `Embed links` permission "
+                               "to send this")
+
+
     @commands.command(pass_context=True, no_pm=True)
     async def serverinfo(self, ctx):
         """Shows server's informations"""
