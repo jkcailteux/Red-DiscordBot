@@ -533,8 +533,8 @@ def set_cog(cog, value):  # TODO: move this out of red.py
 
 
 def load_cogs(bot):
-    defaults = ("advgoogle", "alias", "audio", "customcom", "downloader", "economy",
-                "general", "image", "mod", "streams", "trivia", "crypto", "cryptotrade")
+    defaults = ("advgoogle", "alias", "customcom", "downloader", "economy",
+                "general", "image", "mod", "streams", "trivia", "crypto", "cryptotrade", "coinbase")
 
     try:
         registry = dataIO.load_json("data/red/cogs.json")

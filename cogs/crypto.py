@@ -15,12 +15,23 @@ class Crypto:
     def __init__(self, bot):
         self.bot = bot
         self.data = ""
+        self.listings = ""
         self.last_time = 0
 
+
     @commands.group(pass_context=True)
-    async def crypto(self, ctx, *, term: str=None):
+    async def crypto(self, ctx, *, term: str=""):
         """Crypto"""
-        url = "https://api.coinmarketcap.com/v1/ticker"
+
+        if (term.lower() == "jeth"):
+            await self.bot.say("```JETH is priceless```")
+            return
+
+        if (term.lower() == "meth"):
+            await self.bot.say("```Don't do drugs kids```")
+            return
+
+        url = "https://api.coinmarketcap.com/v1/ticker/?limit=1000"
         data = self.data
         if time.time() > self.last_time + 30:
             with urllib.request.urlopen(url) as req:
@@ -30,17 +41,62 @@ class Crypto:
         msg = term + " not found"
         for crypto in data:
             if term.lower() == crypto['id'].lower():
-                msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
+                msg = "$" + crypto['price_usd'] + "/" + crypto['symbol'] + " " + crypto['percent_change_24h'] + "%"
                 break
             if term.lower() == crypto['name'].lower():
-                msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
+                msg = "$" + crypto['price_usd'] + "/" + crypto['symbol'] + " " + crypto['percent_change_24h'] + "%"
                 break
             if term.lower() == crypto['symbol'].lower():
-                msg = "$" + crypto['price_usd'] + "/" + crypto['symbol']
+                msg = "$" + crypto['price_usd'] + "/" + crypto['symbol'] + " " + crypto['percent_change_24h'] + "%"
                 break
         msg = "```" + msg + "```" 
         await self.bot.say(msg)
-        
 
+    @commands.group(pass_context=True)
+    async def crypto2(self, ctx, *, term: str=""):
+        """Crypto2"""
+
+        if (term.lower() == "jeth"):
+            await self.bot.say("```JETH is priceless```")
+            return
+
+        if (term.lower() == "meth"):
+            await self.bot.say("```Don't do drugs kids```")
+            return
+
+        await getListings(self)
+        cryptoId = 0
+
+        for crypto in self.listings['data']:
+            if term.lower() == crypto['name'].lower():    
+                cryptoId = crypto['id']
+                break
+            if term.lower() == crypto['symbol'].lower():    
+                cryptoId = crypto['id']
+                break
+            if term.lower() == crypto['website_slug'].lower():    
+                cryptoId = crypto['id']
+                break
+
+        if cryptoId == 0:
+            await self.bot.say("```" + term + " not found" + "```")
+            return
+
+        msg = ""
+        crypto_url = "https://api.coinmarketcap.com/v2/ticker/" + str(cryptoId) + "/"
+        with urllib.request.urlopen(crypto_url) as req:
+            crypto = json.loads(req.read().decode())['data']
+            msg_price = "$" + str(crypto['quotes']['USD']['price']) + "/" + crypto['symbol']
+            msg_percent = str(crypto['quotes']['USD']['percent_change_24h']) + "%"
+            msg_rank = "#" + str(crypto['rank'])
+            await self.bot.say("```" + msg_price + " " + msg_percent + " " + msg_rank + "```")
+            return
+        
 def setup(bot):
     bot.add_cog(Crypto(bot))
+
+async def getListings(self):
+    listings_url = "https://api.coinmarketcap.com/v2/listings"
+    if self.listings == "":
+        with urllib.request.urlopen(listings_url) as req:
+            self.listings = json.loads(req.read().decode())        
