@@ -29,7 +29,7 @@ class RPSParser:
         elif argument == "scissors":
             self.choice = RPS.scissors
         else:
-            raise
+            raise Exception
 
 
 class General:
