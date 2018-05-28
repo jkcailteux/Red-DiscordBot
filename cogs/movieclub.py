@@ -44,7 +44,7 @@ class MovieClub:
                 self.movie_list.insert(0, movie_id)
 
                 await self.bot.say("Movie set to ....")
-                await create_movie_embed(self, movie)
+                await create_movie_embed(self, movie, movie_id)
                 fileIO(Files.movie_list_json, "save", self.movie_list)
             else:
                 msg = "Movie " + movie_id + " not found"
@@ -60,7 +60,7 @@ class MovieClub:
         if self.movie_list.__len__() > 0:
             await self.bot.say("Current Movie is .....")
             movie = await get_movie(self, movie_id=self.movie_list[0])
-            await create_movie_embed(self, movie)
+            await create_movie_embed(self, movie, self.movie_list[0])
         else:
             await self.bot.say("There is no current movie")
 
@@ -102,7 +102,7 @@ class MovieClub:
         self.rated_movie_list.add(movie_id)
         fileIO(Files.rated_movie_list_json, "save", dict(_set_object=list(self.rated_movie_list)))
 
-        msg = "Movie Rating for `" + movie["Title"] + "` by `" + ctx.message.author.name + "`\n\n"
+        msg = "Movie Rating for `" + movie["Title"] + "` by <@" + ctx.message.author.id + ">\n\n"
         msg += "```"
         msg += "Plot:        " + str(plot) + "\n"
         msg += "Acting:      " + str(acting) + "\n"
@@ -115,13 +115,21 @@ class MovieClub:
 
         await self.bot.whisper(msg)
 
+    @commands.command(pass_context=True)
+    async def moviehelp(self, ctx):
+        msg_set = "~movieset <imdb id> to set the current movie the group is watching (MODs only)\n"
+        msg_get = "~movieget to get the current movie the group is watching\n"
+        msg_rate = "~movierate <imdb id> <plot> <acting> <visuals> <sound> <rewatchable> <entertaining> to rate a " \
+                   "movie. plot/acting/visuals/sound are 0-10 and rewatchable/entertaining are true/false "
+        await self.bot.say("```" + msg_set + msg_get + msg_rate + "```")
+
 
 # plot*2 + visual + sound + acting + 5*rewatchable + 5*entertaining
 
-async def create_movie_embed(self, movie):
+async def create_movie_embed(self, movie, movie_id: str):
     embed = discord.Embed(colour=discord.Colour.red())
     embed.set_image(url=movie["Poster"])
-    embed.set_author(name=movie["Title"])
+    embed.set_author(name=movie["Title"] + " (" + movie_id + ")")
     embed.add_field(name="Year", value=movie["Year"])
     embed.add_field(name="Rated", value=movie["Rated"])
     embed.add_field(name="Runtime", value=movie["Runtime"])
