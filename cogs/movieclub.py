@@ -12,8 +12,9 @@ from .utils.dataIO import fileIO
 
 class Files:
     data_movieclub = "data/movieclub"
-    rated_movie_list_json = data_movieclub + "/rated_movielist.json"
+    rated_movie_ids_list_json = data_movieclub + "/rated_movie_ids_list.json"
     movie_list_json = data_movieclub + "/movielist.json"
+    rated_movies_folder = "/rated_movies/"
 
 
 class Api:
@@ -26,7 +27,8 @@ class MovieClub:
     def __init__(self, bot):
         self.bot = bot
         self.movie_list = list(fileIO(Files.movie_list_json, "load"))
-        self.rated_movie_list = set(fileIO(Files.rated_movie_list_json, "load")["_set_object"])
+        self.rated_movie_ids_list = set(fileIO(Files.rated_movie_ids_list_json, "load")["_set_object"])
+        self.rated_movies = dict(dict())
         self.omdb_key = "cfe10214"
         self.movie_cache = {}
 
@@ -88,8 +90,8 @@ class MovieClub:
         if rewatchable_score is None:
             error_msg = "Rewatchable needs to yes/no, true/false, or 1/0"
 
-        entertaing_score = parse_binary_text(entertaing)
-        if entertaing_score is None:
+        entertaining_score = parse_binary_text(entertaing)
+        if entertaining_score is None:
             error_msg = "Entertaining needs to yes/no, true/false, or 1/0"
 
         if error_msg is not "":
@@ -99,29 +101,82 @@ class MovieClub:
             return
 
         # We have a valid movie rating
-        self.rated_movie_list.add(movie_id)
-        fileIO(Files.rated_movie_list_json, "save", dict(_set_object=list(self.rated_movie_list)))
+        self.rated_movie_ids_list.add(movie_id)
+        fileIO(Files.rated_movie_ids_list_json, "save", dict(_set_object=list(self.rated_movie_ids_list)))
 
-        msg = "Movie Rating for `" + movie["Title"] + "` by <@" + ctx.message.author.id + ">\n\n"
+        msg = "Movie Rating for `" + movie["Title"] + "`\n\n"
         msg += "```"
-        msg += "Plot:        " + str(plot) + "\n"
-        msg += "Acting:      " + str(acting) + "\n"
-        msg += "Visuals:     " + str(visuals) + "\n"
-        msg += "Sound:       " + str(sound) + "\n"
+        msg += "Plot:         " + str(plot) + "\n"
+        msg += "Acting:       " + str(acting) + "\n"
+        msg += "Visuals:      " + str(visuals) + "\n"
+        msg += "Sound:        " + str(sound) + "\n"
         msg += "\n"
-        msg += "Rewatchable: " + str(rewatchable_score) + "\n"
-        msg += "Entertaing:  " + str(entertaing_score) + "\n"
+        msg += "Rewatchable:  " + str(rewatchable_score) + "\n"
+        msg += "Entertaining: " + str(entertaining_score) + "\n"
         msg += "```"
+
+        # Save Movie Rating in movie specific json
+        await write_move_rating(ctx.message.author.id, movie_id, plot, acting, visuals, sound, rewatchable_score,
+                                entertaining_score)
 
         await self.bot.whisper(msg)
 
     @commands.command(pass_context=True)
-    async def moviehelp(self, ctx):
-        msg_set = "~movieset <imdb id> to set the current movie the group is watching (MODs only)\n"
+    async def moviehelp(self):
+        msg_set = "~movieset <imdb id> to set the current movie the group is watching (Admin only)\n"
         msg_get = "~movieget to get the current movie the group is watching\n"
         msg_rate = "~movierate <imdb id> <plot> <acting> <visuals> <sound> <rewatchable> <entertaining> to rate a " \
-                   "movie. plot/acting/visuals/sound are 0-10 and rewatchable/entertaining are true/false "
-        await self.bot.say("```" + msg_set + msg_get + msg_rate + "```")
+                   "movie. plot/acting/visuals/sound are 0-10 and rewatchable/entertaining are true/false \n"
+        msg_score = "~moviescore <imdb id> to see the average rating of a movie of the entire group\n"
+        await self.bot.say("```" + msg_set + msg_get + msg_rate + msg_score + "```")
+
+    @commands.command(pass_context=True)
+    async def moviescore(self, ctx, movie_id: str):
+        rated_movie_path = Files.data_movieclub + Files.rated_movies_folder + movie_id + ".json"
+        if fileIO(rated_movie_path, "check"):
+            movie_ratings = dict(fileIO(rated_movie_path, "load"))
+        else:
+            movie_ratings = dict()
+
+        movie = await get_movie(self, movie_id)
+
+        counter = 0
+        total_plot = 0
+        total_acting = 0
+        total_sound = 0
+        total_visuals = 0
+        total_rewatchable = 0
+        total_entertaining = 0
+        for key, value in movie_ratings.items():
+            counter += 1
+            total_plot += value["plot"]
+            total_acting += value["acting"]
+            total_sound += value["sound"]
+            total_visuals += value["visuals"]
+            total_rewatchable += 1 if value["rewatchable"] is True else 0
+            total_entertaining += 1 if value["entertaining"] is True else 0
+
+        if counter > 0:
+            msg = "GROUP Movie Rating for `" + movie["Title"] + "`\n\n"
+            msg += "```"
+            msg += "Plot:         " + str(round(total_plot / counter, 2)) + "\n"
+            msg += "Acting:       " + str(round(total_acting / counter, 2)) + "\n"
+            msg += "Visuals:      " + str(round(total_visuals / counter, 2)) + "\n"
+            msg += "Sound:        " + str(round(total_sound / counter, 2)) + "\n"
+            msg += "\n"
+            msg += "Rewatchable:  " + str(round(100 * total_rewatchable / counter, 2)) + "%\n"
+            msg += "Entertaining: " + str(round(100 * total_entertaining / counter, 2)) + "%\n"
+            msg += "\n"
+            msg += "Metascore:    " + str(round(
+                calc_metascore(plot=total_plot / counter, acting=total_acting / counter,
+                               visuals=total_visuals / counter,
+                               sound=total_sound / counter, rewatchable=total_rewatchable / counter,
+                               entertaining=total_entertaining / counter), 2))
+            msg += "```"
+
+            await self.bot.say(msg)
+        else:
+            await self.bot.say("No ratings for " + movie['Title'])
 
 
 # plot*2 + visual + sound + acting + 5*rewatchable + 5*entertaining
@@ -155,6 +210,36 @@ async def get_movie(self, movie_id: str):
         return movie
 
 
+async def write_move_rating(user_id: str, movie_id: str, plot: int, acting: int, visuals: int, sound: int,
+                            rewatchable: bool, entertaining: bool):
+    rated_movie_path = Files.data_movieclub + Files.rated_movies_folder + movie_id + ".json"
+    if fileIO(rated_movie_path, "check"):
+        movie_ratings = dict(fileIO(rated_movie_path, "load"))
+    else:
+        movie_ratings = dict()
+
+    movie_rating = dict(plot=plot, acting=acting, visuals=visuals, sound=sound, rewatchable=rewatchable,
+                        entertaining=entertaining)
+    movie_ratings[user_id] = movie_rating
+
+    fileIO(rated_movie_path, "save", movie_ratings)
+
+
+def calc_metascore(plot: float, acting: float, visuals: float, sound: float,
+                   rewatchable: float, entertaining: float):
+    metascore = 0
+    metascore += plot * 1.5  # max 15
+    metascore += acting * 1.3  # max 13
+    metascore += visuals * 1.1  # max 11
+    metascore += sound * 1.1  # max 11
+    metascore += rewatchable * 5  # max 5
+    metascore += entertaining * 5  # max 5
+
+    return 10 * metascore / (15 + 13 + 11 + 11 + 5 + 5)
+
+
+# 1.5xPlot, 1.1xVisuals. 1.1xSound, 1.3xActing
+
 def parse_binary_text(text: str):
     if text.lower() == "yes" or text.lower() == "true" or text.lower() == "1":
         return True
@@ -168,6 +253,9 @@ def check_folders():
     if not os.path.exists(Files.data_movieclub):
         print("Creating data/movieclub folder...")
         os.makedirs(Files.data_movieclub)
+    if not os.path.exists(Files.data_movieclub + Files.rated_movies_folder):
+        print("Creating data/movieclub/rated_movies folder...")
+        os.makedirs(Files.data_movieclub + Files.rated_movies_folder)
 
 
 def check_files():
@@ -175,9 +263,9 @@ def check_files():
         print("Creating empty movielist.json...")
         fileIO(Files.movie_list_json, "save", [])
 
-    if not fileIO(Files.rated_movie_list_json, "check"):
-        print("Creating empty rated_movielist.json...")
-        fileIO(Files.rated_movie_list_json, "save", {})
+    if not fileIO(Files.rated_movie_ids_list_json, "check"):
+        print("Creating empty rated_movie_ids_list.json...")
+        fileIO(Files.rated_movie_ids_list_json, "save", {})
 
 
 def setup(bot):
