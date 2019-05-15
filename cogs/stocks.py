@@ -23,35 +23,56 @@ class Stocks:
     async def stocks(self, ctx, *, term: str = ""):
         """Stocks"""
 
-        stock_url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + term
-        stock_url = stock_url + "&apikey=CYGECFFT35KMZ8E4"
+        api_key = "&apikey=CYGECFFT35KMZ8E4"
+        term = term.replace(" ", "+")
+        search_url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + term + api_key
 
-        with urllib.request.urlopen(stock_url) as req:
+        with urllib.request.urlopen(search_url) as req:
             response = json.loads(req.read().decode())
             if 'Error Message' in response:
-                await self.bot.say('Error getting stock: \"' + term.upper() + '\"')
+                await self.bot.say('Error getting stock: \"' + term + '\"')
                 return
-            stock_days = response['Time Series (Daily)']
-            current_day_key = sorted(stock_days.keys())[-1]
-            past_day_key = sorted(stock_days.keys())[-2]
+            results = response["bestMatches"]
+            if len(results) > 0:
 
-            current_day = stock_days[current_day_key]
-            past_day = stock_days[past_day_key]
+                company_symbol = results[0]["1. symbol"]
+                company_name = results[0]["2. name"]
 
-            current_price = float(current_day['4. close'])
-            past_price = float(past_day['4. close'])
+                stock_url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="
+                stock_url = stock_url + company_symbol + api_key
 
-            change = current_price / past_price
-            change_str = ''
-            if change >= 1:
-                change_str = str(round((change - 1) * 100, 2)) + '%'
-            else:
-                change_str = '-' + str(round((1 - change) * 100, 2)) + '%'
+                with urllib.request.urlopen(stock_url) as req2:
+                    response2 = json.loads(req2.read().decode())
+                    if 'Error Message' in response2:
+                        await self.bot.say('Error getting stock: \"' + term + '\"')
+                        return
+                    stock_days = response2['Time Series (Daily)']
+                    current_day_key = sorted(stock_days.keys())[-1]
+                    past_day_key = sorted(stock_days.keys())[-2]
 
-            msg = '```' + 'Stock: $' + str(current_price) + '/' + term.upper() + ' ' + change_str + '```'
-            await self.bot.say(msg)
-            return
+                    current_day = stock_days[current_day_key]
+                    past_day = stock_days[past_day_key]
 
+                    current_price = float(current_day['4. close'])
+                    past_price = float(past_day['4. close'])
+
+                    change = current_price / past_price
+                    change_str = ''
+                    if change >= 1:
+                        change_str = str(round((change - 1) * 100, 2)) + '%'
+                    else:
+                        change_str = '-' + str(round((1 - change) * 100, 2)) + '%'
+
+                    msg = '```' + 'Stock: $' + str(current_price) + '/' + company_symbol + ' ' + change_str
+                    msg = msg + ", " + company_name + '```'
+                    await self.bot.say(msg)
+                    return
+
+    @commands.group()
+    async def stonks(self):
+        await self.bot.say("https://i.imgur.com/EFqRbev.png")
+        return
+    
 
 def setup(bot):
     bot.add_cog(Stocks(bot))

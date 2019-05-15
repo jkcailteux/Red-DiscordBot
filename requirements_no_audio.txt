@@ -1,4 +1,8 @@
 pip
+requests
+chardet
+aiohttp
+discord
 git+git://github.com/Rapptz/discord.py.git
 youtube_dl
-imgurpython
+urllib3
