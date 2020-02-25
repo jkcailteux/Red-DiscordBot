@@ -23,7 +23,7 @@ class YouTube:
             session = aiohttp.ClientSession(connector=conn)
             async with session.get(url, params=payload, headers=headers) as r:
                 result = await r.text()
-            session.close()
+            await session.close()
             yt_find = re.findall(r'href=\"\/watch\?v=(.{11})', result)
             url = 'https://www.youtube.com/watch?v={}'.format(yt_find[0])
             await self.bot.say(url)

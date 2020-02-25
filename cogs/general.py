@@ -249,7 +249,6 @@ class General:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
 
-
     @commands.command(pass_context=True, no_pm=True)
     async def serverinfo(self, ctx):
         """Shows server's informations"""
@@ -336,6 +335,11 @@ class General:
             await self.bot.say("There is no definition #{}".format(pos+1))
         except:
             await self.bot.say("Error.")
+
+    @commands.group(aliases=["hbd", "happybday"])
+    async def happybirthday(self):
+        await self.bot.say("https://cdn.discordapp.com/attachments/205384210632933376/653307542814064666/happy-birthday-and-9ary35.png")
+        return
 
     @commands.command(pass_context=True, no_pm=True)
     async def poll(self, ctx, *text):

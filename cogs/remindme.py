@@ -1,10 +1,13 @@
+import asyncio
+import logging
+import os
+import time
+
 import discord
 from discord.ext import commands
+
 from .utils.dataIO import fileIO
-import os
-import asyncio
-import time
-import logging
+
 
 class RemindMe:
     """Never forget anything anymore."""
@@ -12,10 +15,10 @@ class RemindMe:
     def __init__(self, bot):
         self.bot = bot
         self.reminders = fileIO("data/remindme/reminders.json", "load")
-        self.units = {"minute" : 60, "hour" : 3600, "day" : 86400, "week": 604800, "month": 2592000}
+        self.units = {"minute": 60, "hour": 3600, "day": 86400, "week": 604800, "month": 2592000}
 
     @commands.command(pass_context=True)
-    async def remindme(self, ctx, quantity : int, time_unit : str, *, text : str):
+    async def remindme(self, ctx, quantity: int, time_unit: str, *, text: str):
         """Sends you <text> when the time is up
 
         Accepts: minutes, hours, days, weeks, month
@@ -37,8 +40,8 @@ class RemindMe:
             await self.bot.say("Text is too long.")
             return
         seconds = self.units[time_unit] * quantity
-        future = int(time.time()+seconds)
-        self.reminders.append({"ID" : author.id, "FUTURE" : future, "TEXT" : text})
+        future = int(time.time() + seconds)
+        self.reminders.append({"ID": author.id, "FUTURE": future, "TEXT": text})
         logger.info("{} ({}) set a reminder.".format(author.name, author.id))
         await self.bot.say("I will remind you that in {} {}.".format(str(quantity), time_unit + s))
         fileIO("data/remindme/reminders.json", "save", self.reminders)
@@ -66,7 +69,8 @@ class RemindMe:
             for reminder in self.reminders:
                 if reminder["FUTURE"] <= int(time.time()):
                     try:
-                        await self.bot.send_message(discord.User(id=reminder["ID"]), "You asked me to remind you this:\n{}".format(reminder["TEXT"]))
+                        await self.bot.send_message(discord.User(id=reminder["ID"]),
+                                                    "You asked me to remind you this:\n{}".format(reminder["TEXT"]))
                     except (discord.errors.Forbidden, discord.errors.NotFound):
                         to_remove.append(reminder)
                     except discord.errors.HTTPException:
@@ -79,10 +83,12 @@ class RemindMe:
                 fileIO("data/remindme/reminders.json", "save", self.reminders)
             await asyncio.sleep(5)
 
+
 def check_folders():
     if not os.path.exists("data/remindme"):
         print("Creating data/remindme folder...")
         os.makedirs("data/remindme")
+
 
 def check_files():
     f = "data/remindme/reminders.json"
@@ -90,12 +96,13 @@ def check_files():
         print("Creating empty reminders.json...")
         fileIO(f, "save", [])
 
+
 def setup(bot):
     global logger
     check_folders()
     check_files()
     logger = logging.getLogger("remindme")
-    if logger.level == 0: # Prevents the logger from being loaded again in case of module reload
+    if logger.level == 0:  # Prevents the logger from being loaded again in case of module reload
         logger.setLevel(logging.INFO)
         handler = logging.FileHandler(filename='data/remindme/reminders.log', encoding='utf-8', mode='a')
         handler.setFormatter(logging.Formatter('%(asctime)s %(message)s', datefmt="[%d/%m/%Y %H:%M]"))
