@@ -9,6 +9,7 @@ class AdvancedGoogle:
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
+        self.googleApiKey = ""
         self.option = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36"
         }
@@ -68,7 +69,7 @@ class AdvancedGoogle:
         return url, error
 
     async def images(self, ctx):
-        uri = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBUumS9ogaC0xtQi-HASkrT8Vi4p_S43QU&cx=009084991455056480736:dcagltkol4u&prettyPrint=false&q="
+        uri = "https://www.googleapis.com/customsearch/v1?key=" + self.googleApiKey + "&cx=009084991455056480736:dcagltkol4u&prettyPrint=false&q="
         num = 7
         if isinstance(ctx, str):
             quary = str(ctx[num - 1 :].lower())
