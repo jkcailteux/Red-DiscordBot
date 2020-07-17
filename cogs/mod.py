@@ -1,16 +1,17 @@
-import discord
-from discord.ext import commands
-from .utils.dataIO import dataIO
-from .utils import checks
-from __main__ import send_cmd_help, settings
-from datetime import datetime
-from collections import deque, defaultdict
-from cogs.utils.chat_formatting import escape_mass_mentions, box, pagify
+import asyncio
+import logging
 import os
 import re
-import logging
-import asyncio
+from collections import deque, defaultdict
+from datetime import datetime
 
+import discord
+from __main__ import send_cmd_help, settings
+from discord.ext import commands
+
+from cogs.utils.chat_formatting import escape_mass_mentions, box, pagify
+from .utils import checks
+from .utils.dataIO import dataIO
 
 ACTIONS_REPR = {
     "BAN"     : ("Ban", "\N{HAMMER}"),

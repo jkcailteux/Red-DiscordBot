@@ -1,15 +1,8 @@
 
-from discord.ext import commands
-from random import choice
-from .utils.dataIO import dataIO
-from .utils import checks
-from .utils.chat_formatting import box
-from collections import Counter, defaultdict, namedtuple
-import discord
-import time
-import os
-import urllib.request
 import json
+import urllib.request
+
+from discord.ext import commands
 
 
 class Stocks:

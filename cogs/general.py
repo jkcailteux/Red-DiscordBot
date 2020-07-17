@@ -1,14 +1,16 @@
-import discord
-from discord.ext import commands
-from .utils.chat_formatting import escape_mass_mentions, italics, pagify
-from random import randint
-from random import choice
-from enum import Enum
-from urllib.parse import quote_plus
+import asyncio
 import datetime
 import time
+from enum import Enum
+from random import choice
+from random import randint
+from urllib.parse import quote_plus
+
 import aiohttp
-import asyncio
+import discord
+from discord.ext import commands
+
+from .utils.chat_formatting import escape_mass_mentions, italics, pagify
 
 settings = {"POLL_DURATION" : 60}
 

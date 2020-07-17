@@ -1,25 +1,27 @@
-import discord
-from discord.ext import commands
-import threading
-import os
-from random import shuffle, choice
-from cogs.utils.dataIO import dataIO
-from cogs.utils import checks
-from cogs.utils.chat_formatting import pagify, escape
-from urllib.parse import urlparse
-from __main__ import send_cmd_help, settings
-from json import JSONDecodeError
-import re
-import logging
+import asyncio
 import collections
 import copy
-import asyncio
-import math
-import time
 import inspect
+import logging
+import math
+import os
+import re
 import subprocess
+import threading
+import time
 import urllib.parse
 from enum import Enum
+from json import JSONDecodeError
+from random import shuffle, choice
+from urllib.parse import urlparse
+
+import discord
+from __main__ import send_cmd_help, settings
+from discord.ext import commands
+
+from cogs.utils import checks
+from cogs.utils.chat_formatting import pagify, escape
+from cogs.utils.dataIO import dataIO
 
 __author__ = "tekulvw"
 __version__ = "0.1.1"

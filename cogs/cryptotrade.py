@@ -1,10 +1,12 @@
-from discord.ext import commands
-from .utils import checks
-import discord
-import json
 import hashlib
 import hmac
+import json
+
 import requests
+from discord.ext import commands
+
+from .utils import checks
+
 
 class CryptoTrade:
     """General commands."""

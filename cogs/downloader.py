@@ -1,19 +1,21 @@
-from discord.ext import commands
-from cogs.utils.dataIO import dataIO
-from cogs.utils import checks
-from cogs.utils.chat_formatting import pagify, box
-from __main__ import send_cmd_help, set_cog
 import os
-from subprocess import run as sp_run, PIPE
 import shutil
 from asyncio import as_completed
-from setuptools import distutils
-import discord
-from functools import partial
 from concurrent.futures import ThreadPoolExecutor
-from time import time
-from importlib.util import find_spec
 from copy import deepcopy
+from functools import partial
+from importlib.util import find_spec
+from subprocess import run as sp_run, PIPE
+from time import time
+
+import discord
+from __main__ import send_cmd_help, set_cog
+from discord.ext import commands
+from setuptools import distutils
+
+from cogs.utils import checks
+from cogs.utils.chat_formatting import pagify, box
+from cogs.utils.dataIO import dataIO
 
 NUM_THREADS = 4
 REPO_NONEX = 0x1

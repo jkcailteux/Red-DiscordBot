@@ -1,9 +1,11 @@
-from discord.ext import commands
-from random import choice
-import aiohttp
+import json
 import re
 import urllib
-import json
+from random import choice
+
+import aiohttp
+from discord.ext import commands
+
 
 class AdvancedGoogle:
     def __init__(self, bot):
@@ -40,42 +42,14 @@ class AdvancedGoogle:
         result = await self.get_response(ctx)
         await self.bot.say(result)
 
-    async def images_old(self, ctx, images: bool = False):
-        uri = "https://www.google.com/search?hl=en&tbm=isch&tbs=isz:m&q="
-        num = 7
-        if images:
-            num = 8
-        if isinstance(ctx, str):
-            quary = str(ctx[num - 1 :].lower())
-        else:
-            quary = str(
-                ctx.message.content[len(ctx.prefix + ctx.command.name) + num :].lower()
-            )
-        encode = urllib.parse.quote_plus(quary, encoding="utf-8", errors="replace")
-        uir = uri + encode
-        url = None
-        async with self.session.get(uir, headers=self.option) as resp:
-            test = await resp.content.read()
-            unicoded = test.decode("unicode_escape")
-            query_find = self.regex[3].findall(unicoded)
-            try:
-                if images:
-                    url = choice(query_find)
-                elif not images:
-                    url = query_find[0]
-                error = False
-            except IndexError:
-                error = True
-        return url, error
-
     async def images(self, ctx):
         uri = "https://www.googleapis.com/customsearch/v1?key=" + self.googleApiKey + "&cx=009084991455056480736:dcagltkol4u&prettyPrint=false&q="
         num = 7
         if isinstance(ctx, str):
-            quary = str(ctx[num - 1 :].lower())
+            quary = str(ctx[num - 1:].lower())
         else:
             quary = str(
-                ctx.message.content[len(ctx.prefix + ctx.command.name) + num :].lower()
+                ctx.message.content[len(ctx.prefix + ctx.command.name) + num:].lower()
             )
         encode = urllib.parse.quote_plus(quary, encoding="utf-8", errors="replace")
         uir = uri + encode
@@ -113,12 +87,12 @@ class AdvancedGoogle:
             search_valid = str(ctx.lower())
         else:
             search_type = (
-                ctx.message.content[len(ctx.prefix + ctx.command.name) + 1 :]
-                .lower()
-                .split(" ")
+                ctx.message.content[len(ctx.prefix + ctx.command.name) + 1:]
+                    .lower()
+                    .split(" ")
             )
             search_valid = str(
-                ctx.message.content[len(ctx.prefix + ctx.command.name) + 1 :].lower()
+                ctx.message.content[len(ctx.prefix + ctx.command.name) + 1:].lower()
             )
 
         # Start of Image
@@ -149,7 +123,7 @@ class AdvancedGoogle:
                 else:
                     quary = str(
                         ctx.message.content[
-                            len(ctx.prefix + ctx.command.name) + 6 :
+                        len(ctx.prefix + ctx.command.name) + 6:
                         ].lower()
                     )
                 encode = urllib.parse.quote_plus(
@@ -166,7 +140,7 @@ class AdvancedGoogle:
                 quary = str(ctx)
             else:
                 quary = str(
-                    ctx.message.content[len(ctx.prefix + ctx.command.name) + 1 :]
+                    ctx.message.content[len(ctx.prefix + ctx.command.name) + 1:]
                 )
             encode = urllib.parse.quote_plus(quary, encoding="utf-8", errors="replace")
             uir = uri + encode
@@ -203,7 +177,9 @@ class AdvancedGoogle:
         text = message.content
         if not text.lower().startswith(str2find):
             return
-        prefix = self.bot.settings.prefixes if len(self.bot.settings.get_server_prefixes(message.server)) == 0 else self.bot.settings.get_server_prefixes(message.server)
+        prefix = self.bot.settings.prefixes if len(
+            self.bot.settings.get_server_prefixes(message.server)) == 0 else self.bot.settings.get_server_prefixes(
+            message.server)
         message.content = message.content.replace(
             str2find,
             prefix[0] + "google ",
@@ -211,6 +187,7 @@ class AdvancedGoogle:
         )
         await self.bot.send_typing(channel)
         await self.bot.process_commands(message)
+
 
 def setup(bot):
     n = AdvancedGoogle(bot)

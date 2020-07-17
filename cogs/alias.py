@@ -1,11 +1,13 @@
+import os
+from copy import deepcopy
+
+import discord
+from __main__ import user_allowed, send_cmd_help
 from discord.ext import commands
+
+from .utils import checks
 from .utils.chat_formatting import box
 from .utils.dataIO import dataIO
-from .utils import checks
-from __main__ import user_allowed, send_cmd_help
-from copy import deepcopy
-import os
-import discord
 
 
 class Alias:

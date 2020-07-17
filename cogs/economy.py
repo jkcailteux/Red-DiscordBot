@@ -1,17 +1,18 @@
+import logging
+import os
+import random
+import time
+from collections import namedtuple, defaultdict, deque
+from copy import deepcopy
+from datetime import datetime
+from enum import Enum
+
 import discord
 from discord.ext import commands
-from cogs.utils.dataIO import dataIO
-from collections import namedtuple, defaultdict, deque
-from datetime import datetime
-from copy import deepcopy
-from .utils import checks
+
 from cogs.utils.chat_formatting import pagify, box
-from enum import Enum
-import __main__
-import os
-import time
-import logging
-import random
+from cogs.utils.dataIO import dataIO
+from .utils import checks
 
 default_settings = {"PAYDAY_TIME": 300, "PAYDAY_CREDITS": 120,
                     "SLOT_MIN": 5, "SLOT_MAX": 100, "SLOT_TIME": 0,

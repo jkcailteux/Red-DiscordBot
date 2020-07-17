@@ -1,7 +1,7 @@
-from discord.ext import commands
-import aiohttp
-import urllib
 import json
+import urllib
+import aiohttp
+from discord.ext import commands
 
 scopes = ["https://www.googleapis.com/auth/youtube.readonly"]
 

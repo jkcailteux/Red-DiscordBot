@@ -1,19 +1,20 @@
-import discord
-from discord.ext import commands
-from cogs.utils import checks
-from __main__ import set_cog
-from .utils.dataIO import dataIO
-from .utils.chat_formatting import pagify, box
-
-import importlib
-import traceback
-import logging
 import asyncio
-import threading
 import datetime
 import glob
+import importlib
+import logging
 import os
+import threading
+import traceback
+
 import aiohttp
+import discord
+from __main__ import set_cog
+from discord.ext import commands
+
+from cogs.utils import checks
+from .utils.chat_formatting import pagify, box
+from .utils.dataIO import dataIO
 
 log = logging.getLogger("red.owner")
 

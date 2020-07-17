@@ -1,10 +1,13 @@
+import asyncio
+import logging
+import os
+import time
+
 import discord
 from discord.ext import commands
+
 from .utils.dataIO import fileIO
-import os
-import asyncio
-import time
-import logging
+
 
 class RemindUs:
     """Never forget anything anymore."""

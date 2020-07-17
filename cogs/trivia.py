@@ -1,14 +1,16 @@
-from discord.ext import commands
+import asyncio
+import os
+import time
+from collections import Counter, defaultdict, namedtuple
 from random import choice
-from .utils.dataIO import dataIO
+
+import chardet
+import discord
+from discord.ext import commands
+
 from .utils import checks
 from .utils.chat_formatting import box
-from collections import Counter, defaultdict, namedtuple
-import discord
-import time
-import os
-import asyncio
-import chardet
+from .utils.dataIO import dataIO
 
 DEFAULTS = {"MAX_SCORE"    : 10,
             "TIMEOUT"      : 120,

@@ -1,10 +1,11 @@
 import logging
-
 import random
+
 import discord
-from .utils import checks
 from discord.ext import commands
 from discord.ext.commands.context import Context
+
+from .utils import checks
 
 
 class SecretSanta:
