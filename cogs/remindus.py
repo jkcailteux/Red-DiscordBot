@@ -15,10 +15,10 @@ class RemindUs:
     def __init__(self, bot):
         self.bot = bot
         self.reminders = fileIO("data/remindus/reminders.json", "load")
-        self.units = {"minute" : 60, "hour" : 3600, "day" : 86400, "week": 604800, "month": 2592000}
+        self.units = {"minute": 60, "hour": 3600, "day": 86400, "week": 604800, "month": 2592000}
 
     @commands.command(pass_context=True)
-    async def remindus(self, ctx, quantity : int, time_unit : str, *, text : str):
+    async def remindus(self, ctx, quantity: int, time_unit: str, *, text: str):
         """Sends you <text> when the time is up
 
         Accepts: minutes, hours, days, weeks, month
@@ -44,8 +44,8 @@ class RemindUs:
             await self.bot.say("Text is too long.")
             return
         seconds = self.units[time_unit] * quantity
-        future = int(time.time()+seconds)
-        self.reminders.append({"ID" : author.id, "FUTURE" : future, "TEXT" : text})
+        future = int(time.time() + seconds)
+        self.reminders.append({"ID": author.id, "FUTURE": future, "TEXT": text})
         logger.info("{} ({}) set a reminder.".format(author.name, author.id))
         await self.bot.say("I will remind this channel that in {} {}.".format(str(quantity), time_unit + s))
         fileIO("data/remindus/reminders.json", "save", self.reminders)
@@ -77,7 +77,8 @@ class RemindUs:
             for reminder in self.reminders:
                 if reminder["FUTURE"] <= int(time.time()):
                     try:
-                        await self.bot.send_message(discord.Object(id=reminder["ID"]), "You asked me to remind you this:\n{}".format(reminder["TEXT"]))
+                        await self.bot.send_message(discord.Object(id=reminder["ID"]),
+                                                    "You asked me to remind you this:\n{}".format(reminder["TEXT"]))
                     except (discord.errors.Forbidden, discord.errors.NotFound):
                         to_remove.append(reminder)
                     except discord.errors.HTTPException:
@@ -90,10 +91,12 @@ class RemindUs:
                 fileIO("data/remindus/reminders.json", "save", self.reminders)
             await asyncio.sleep(5)
 
+
 def check_folders():
     if not os.path.exists("data/remindus"):
         print("Creating data/remindus folder...")
         os.makedirs("data/remindus")
+
 
 def check_files():
     f = "data/remindus/reminders.json"
@@ -101,12 +104,13 @@ def check_files():
         print("Creating empty reminders.json...")
         fileIO(f, "save", [])
 
+
 def setup(bot):
     global logger
     check_folders()
     check_files()
     logger = logging.getLogger("remindus")
-    if logger.level == 0: # Prevents the logger from being loaded again in case of module reload
+    if logger.level == 0:  # Prevents the logger from being loaded again in case of module reload
         logger.setLevel(logging.INFO)
         handler = logging.FileHandler(filename='data/remindus/reminders.log', encoding='utf-8', mode='a')
         handler.setFormatter(logging.Formatter('%(asctime)s %(message)s', datefmt="[%d/%m/%Y %H:%M]"))

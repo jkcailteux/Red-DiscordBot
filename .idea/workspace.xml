@@ -2,24 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8cf53be6-81ee-41f2-877a-67149e89a6bb" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/cogs/league_team_builder.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/advgoogle.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/advgoogle.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/alias.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/alias.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/audio.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/audio.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/crypto.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/crypto.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/cryptotrade.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/cryptotrade.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/customcom.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/customcom.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/downloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/downloader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/economy.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/economy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/general.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/general.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/mod.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/mod.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/owner.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/owner.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/remindus.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/remindus.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/secretsanta.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/secretsanta.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/stocks.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/stocks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/trivia.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/trivia.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/youtube.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/youtube.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/red/cogs.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/red/cogs.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -54,10 +42,34 @@
       <file leaf-file-name="advgoogle.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cogs/advgoogle.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1989">
-              <caret line="192" column="27" selection-start-line="192" selection-start-column="27" selection-end-line="192" selection-end-column="27" />
+            <state relative-caret-position="100">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="owner.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cogs/owner.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="120" column="49" lean-forward="true" selection-start-line="120" selection-start-column="49" selection-end-line="120" selection-end-column="49" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="remindus.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cogs/remindus.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="156">
+              <caret line="105" selection-start-line="105" selection-end-line="105" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -67,7 +79,7 @@
         <entry file="file://$PROJECT_DIR$/cogs/crypto.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="425">
-              <caret line="64" column="26" lean-forward="true" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
+              <caret line="64" column="26" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -75,11 +87,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="league_team_builder.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="league_team_builder.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cogs/league_team_builder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
-              <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+            <state relative-caret-position="275">
+              <caret line="39" column="34" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -96,11 +108,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cogs.json" pinned="false" current-in-tab="false">
+      <file leaf-file-name="cogs.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data/red/cogs.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="37" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
+            <state relative-caret-position="255">
+              <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -116,7 +128,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>emb</find>
       <find>title</find>
       <find>def</find>
       <find />
@@ -146,6 +157,7 @@
       <find>result_returner</find>
       <find>NR6sGzXNSKuKFW--c4s4F3ZP94F81Wly1SMAPNGPN0R67</find>
       <find>NR6sGzXNSKuKFW--c4s4F3ZP94F81Wly1SMAPNGPN0R67w</find>
+      <find>session</find>
     </findStrings>
     <replaceStrings>
       <replace>rated_movielist_json</replace>
@@ -170,9 +182,11 @@
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/cogs/crypto.py" />
         <option value="$PROJECT_DIR$/cogs/youtube.py" />
-        <option value="$PROJECT_DIR$/cogs/advgoogle.py" />
-        <option value="$PROJECT_DIR$/data/red/cogs.json" />
         <option value="$PROJECT_DIR$/cogs/league_team_builder.py" />
+        <option value="$PROJECT_DIR$/cogs/advgoogle.py" />
+        <option value="$PROJECT_DIR$/cogs/remindus.py" />
+        <option value="$PROJECT_DIR$/cogs/owner.py" />
+        <option value="$PROJECT_DIR$/data/red/cogs.json" />
       </list>
     </option>
   </component>
@@ -299,24 +313,25 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18125" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.31770834" side_tool="true" weight="0.79489905" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32837406" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="8" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49635416" weight="0.17640808" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49635416" visible="true" weight="0.21679065" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.66041666" weight="0.33262485" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.6822917" visible="true" weight="0.19447397" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.6822917" weight="0.48034006" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32837406" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -325,11 +340,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/cogs/advgoogle.py</url>
-          <line>65</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/lib/urllib3/response.py</url>
           <line>395</line>
@@ -472,9 +482,6 @@ group.add(ctx.message.author.id, ctx.message.author)</expression-string>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/data/crypto/settings.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/cogs/utils/checks.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-885" />
@@ -579,13 +586,6 @@ group.add(ctx.message.author.id, ctx.message.author)</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/cogs/audio.py">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cogs/owner.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4845">
-          <caret line="300" column="9" selection-start-line="300" selection-start-column="4" selection-end-line="300" selection-end-column="9" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cogs/stocks.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -721,13 +721,6 @@ group.add(ctx.message.author.id, ctx.message.author)</expression-string>
     <entry file="file://$PROJECT_DIR$/data/customcom/commands.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/red/cogs.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="37" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/discord/client.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="158">
@@ -759,20 +752,10 @@ group.add(ctx.message.author.id, ctx.message.author)</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cogs/advgoogle.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1989">
-          <caret line="192" column="27" selection-start-line="192" selection-start-column="27" selection-end-line="192" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cogs/crypto.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
-          <caret line="64" column="26" lean-forward="true" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
+          <caret line="64" column="26" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -781,11 +764,48 @@ group.add(ctx.message.author.id, ctx.message.author)</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/cogs/league_team_builder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+        <state relative-caret-position="275">
+          <caret line="39" column="34" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cogs/advgoogle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cogs/remindus.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="105" selection-start-line="105" selection-end-line="105" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cogs/owner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="120" column="49" lean-forward="true" selection-start-line="120" selection-start-column="49" selection-end-line="120" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/red/cogs.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
         </state>
       </provider>
     </entry>
